@@ -1,44 +1,39 @@
-# Teams Transcript Summarizer
+# Teams Meeting Summarizer
 
-A Python tool that generates concise, structured summaries of Microsoft Teams meeting transcripts using the [sumy](https://github.com/miso-belica/sumy) text summarization library.
+A Python command-line tool that generates concise, structured summaries of Microsoft Teams meeting transcripts using LM Studio's local API.
 
 ## Features
 
-- Automatically extracts and formats meeting metadata (title, date, participants)
-- Generates concise summaries using state-of-the-art summarization algorithms
-- Identifies key discussion topics from the conversation
-- Detects action items and who is responsible for them
-- Structures output in a clear format with overview, discussion points, and action items
-- Supports customizable summary length and multiple languages
+- Automatically generates concise meeting summaries with a clear structure
+- Supports multiple languages (English, French, German, Spanish, Portuguese, Italian)
+- Customizable summary ratio
+- Easy-to-use command-line interface
+- Uses local LM Studio API for privacy and flexibility
+
+## Prerequisites
+
+- Python 3.6 or higher
+- [LM Studio](https://lmstudio.ai/) installed and running locally
+- A compatible language model loaded in LM Studio
 
 ## Installation
 
-### Prerequisites
-
-- Python 3.6 or higher
-
-### Install from GitHub
+### From Source
 
 ```bash
 # Clone the repository
-git clone https://github.com/chrisurf/teams-transcript-summarizer.git
-cd teams-transcript-summarizer
+git clone https://github.com/chrisurf/teams-transcript-summarizer
+cd teams-summarize
 
-# Install the package and dependencies
+# Install the package
 pip install -e .
-```
-
-### Install with pip (coming soon)
-
-```bash
-pip install teams-transcript-summarizer
 ```
 
 ## Usage
 
-### Command Line Usage
+Before using the tool, make sure LM Studio is running with the API server enabled on the default port (1234).
 
-After installation, you can use the tool from the command line:
+### Basic Usage
 
 ```bash
 # Basic usage
@@ -52,105 +47,42 @@ teams-summarize path/to/transcript.txt --language french
 
 # Adjust summary ratio (percentage of original content)
 teams-summarize path/to/transcript.txt --ratio 0.3
+
+# Use a different API URL
+teams-summarize path/to/transcript.txt --api-url http://localhost:5000/api/v0/chat/completions
 ```
 
-### Python API Usage
+### Supported Languages
 
-You can also use the tool programmatically in your Python projects:
-
-```python
-from teams_summarizer import TeamsMeetingSummarizer
-
-# Initialize the summarizer
-summarizer = TeamsMeetingSummarizer(language="english")
-
-# Read a transcript file
-with open("path/to/transcript.txt", "r", encoding="utf-8") as f:
-    transcript_text = f.read()
-
-# Generate summary
-summary = summarizer.summarize(transcript_text, summary_ratio=0.2)
-
-# Print or save the summary
-print(summary)
-```
-
-## Example Output
-
-For a sample meeting transcript, the tool will generate output like:
-
-```markdown
-# Q1 Product Roadmap Discussion
-
-Date: March 15, 2025
-Participants: John Smith, Sarah Johnson, Mike Chen, Emma Williams, David Kim, Lisa Rodriguez
-
-## 1. Overview
-
-The meeting focused on planning the Q1 product roadmap. The team discussed prioritizing mobile optimization, calendar integration, and customizable notifications based on user feedback. The team assigned responsibilities and set deadlines for each feature.
-
-## 2. Key Discussion Points
-
-- **Mobile Performance**: Mobile optimization was identified as a high priority due to a 23% increase in support tickets. Lisa's team will work on this issue with an expected delivery by the end of April.
-
-- **Calendar Integration**: Integration with Google Calendar, Outlook, and Apple Calendar will cover 95% of the user base. This feature will require 6 weeks of development time and is scheduled for May.
-
-- **Customizable Notifications**: The most requested notification options have been compiled by the support team. David's team will implement this feature in parallel with mobile optimization, with completion expected by mid-April.
-
-- **Data Sync Bug**: An intermittent data sync issue affecting 2% of users needs to be fixed. The root cause has been identified as cache management and should take about 1 week to resolve.
-
-## 3. Action Items
-
-- **Fix the data sync bug**: David's team - by end of March
-- **Mobile performance optimization**: Lisa's team - by end of April
-- **Customizable notifications**: David's team - by mid-April
-- **Calendar integration**: Lisa's team - starting May
-- **Send detailed roadmap document**: John - by tomorrow
-```
-
-## How It Works
-
-The Teams Transcript Summarizer works by:
-
-1. **Preprocessing**: Cleans the transcript by removing timestamps and speaker identifiers
-2. **Metadata Extraction**: Identifies meeting title, date, and participants
-3. **Summarization**: Applies advanced text summarization algorithms from the sumy library
-4. **Topic Identification**: Extracts key topics from the discussion
-5. **Action Item Detection**: Identifies sentences that describe tasks or responsibilities 
-6. **Structured Formatting**: Organizes the information into a clear, readable format
-
-## Supported Languages
-
-The tool supports multiple languages through the sumy library, including:
-
-- English
-- German
+- English (default)
 - French
+- German
 - Spanish
 - Portuguese
 - Italian
-- Czech
-- Ukrainian
-- Russian
-- Japanese
-- Chinese
-- And [many more](https://github.com/miso-belica/sumy#is-my-natural-language-supported)
 
-## Contributing
+## Output Format
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+The tool generates summaries in a structured format with three sections:
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. **Overview** - Brief introduction to the meeting purpose, participants, and outcome
+2. **Key Discussion Points** - Summary of the main topics discussed
+3. **Action Items** - List of tasks assigned during the meeting
+
+## Setting Up LM Studio
+
+1. Download and install [LM Studio](https://lmstudio.ai/)
+2. Launch LM Studio
+3. Download a model (e.g., Llama 2, Mistral, etc.)
+4. Go to the "Local Server" tab
+5. Click "Start Server" to begin the API server on http://localhost:1234
+
+## Troubleshooting
+
+- **API Connection Error**: Make sure LM Studio is running and the API server is started.
+- **Model Loading Error**: Ensure you have a model loaded in LM Studio before running the summarizer.
+- **Long Processing Times**: Large transcripts may take time to process. Consider using a more powerful model or reducing the transcript size.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- [sumy](https://github.com/miso-belica/sumy) - The underlying text summarization library
-- Microsoft Teams - For the transcript format this tool is designed to process
+This project is licensed under the MIT License - see the LICENSE file for details.
