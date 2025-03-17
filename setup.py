@@ -25,7 +25,7 @@ setup(
     install_requires=requirements,
     entry_points={
         "console_scripts": [
-            "teams-summarize=teams_summarizer:main",
+            "teams-summarize=teams_transcript_summarizer.cli:main",
         ],
     },
 )
