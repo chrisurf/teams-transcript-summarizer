@@ -7,6 +7,7 @@ Key requirements:
 - Summarize only meaningful and substantive points, including decisions, action items, key discussions, and insights.
 - Ensure clarity and coherence while maintaining the original intent.
 - Return the summary in the language requested by the user. If no language is specified, use the transcript's original language.
+- Only and directly return the summary, without additional comments or explanations.
 
 Your summaries should be structured, easy to read, and useful for stakeholders who need key takeaways without reviewing the entire transcript."""
 
