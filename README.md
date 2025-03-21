@@ -33,6 +33,84 @@ pip install -e .
 
 Before using the tool, make sure LM Studio is running with the API server enabled on the default port (1234).
 
+### **LM Studio CLI Commands**
+
+1. **Check the Status of LM Studio**:
+   - Displays the current status of LM Studio.
+   ```bash
+   lms status
+   ```
+
+2. **Manage the Local Server**:
+   - For server management, use the following:
+     ```bash
+     lms server <command>
+     ```
+     Replace `<command>` with the specific server action you need (e.g., start, stop, restart).
+
+3. **List All Downloaded Models**:
+   - Shows all models that are downloaded on your system.
+   ```bash
+   lms ls
+   ```
+
+4. **List All Loaded Models**:
+   - Displays models that are currently loaded into the LM Studio.
+   ```bash
+   lms ps
+   ```
+
+5. **Search and Download a Model Online**:
+   - Search for and download a model from the online repository.
+   ```bash
+   lms get <model_name>
+   ```
+   Replace `<model_name>` with the name of the model you want to download.
+
+6. **Load a Model**:
+   - Load a model into LM Studio for use.
+   ```bash
+   lms load <model_name>
+   ```
+
+7. **Unload a Model**:
+   - Unload a model from LM Studio.
+   ```bash
+   lms unload <model_name>
+   ```
+
+8. **Create a New Project**:
+   - Scaffold a new project in LM Studio.
+   ```bash
+   lms create <project_name>
+   ```
+
+9. **View Logs**:
+   - Stream the logs from LM Studio.
+   ```bash
+   lms log stream
+   ```
+
+10. **Import a Model File into LM Studio**:
+    - Import a locally stored model file into LM Studio.
+    ```bash
+    lms import <model_file_path>
+    ```
+
+11. **Bootstrap the CLI**:
+    - Initialize or set up the CLI environment.
+    ```bash
+    lms bootstrap
+    ```
+
+12. **Check the Version of the CLI**:
+    - Prints the version of the LM Studio CLI installed.
+    ```bash
+    lms version
+    ```
+
+---
+
 ### Basic Usage
 
 ```bash
