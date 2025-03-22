@@ -13,6 +13,7 @@ import json
 import sys
 import requests
 from pathlib import Path
+from datetime import datetime
 
 # Update the import logic for meeting_summary_prompts
 script_dir = Path(__file__).resolve().parent
@@ -121,6 +122,10 @@ def main():
         default='http://localhost:1234/api/v0/chat/completions',
         help='URL for the LM Studio API (default: http://localhost:1234/api/v0/chat/completions)'
     )
+    parser.add_argument(
+        '--destination', '-d',
+        help='Destination directory to store the output as a .md file (optional)'
+    )
     
     args = parser.parse_args()
     
@@ -146,7 +151,27 @@ def main():
     summary = summarize_transcript(transcript, args.language, args.ratio, args.api_url)
     
     # Output the summary
-    if args.output:
+    if args.destination:
+        try:
+            # Ensure the destination directory exists
+            destination_path = Path(args.destination)
+            destination_path.mkdir(parents=True, exist_ok=True)
+            
+            # Generate the filename with timestamp
+            timestamp = datetime.now().strftime("%Y_%m_%d")
+            input_filename = input_path.stem.replace(" ", "_")
+            output_filename = f"{timestamp}_{input_filename}.md"
+            output_file = destination_path / output_filename
+            
+            # Write the summary to the .md file
+            with open(output_file, 'w', encoding='utf-8') as file:
+                file.write(summary)
+            print(f"Summary written to {output_file}")
+        except Exception as e:
+            print(f"Error writing to destination directory: {e}")
+            print("\nSummary:")
+            print(summary)
+    elif args.output:
         try:
             output_path = Path(args.output)
             
